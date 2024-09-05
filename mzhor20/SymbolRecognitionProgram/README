@@ -1,0 +1,1 @@
+pip install tensorflow numpy pandas matplotlib fastapi uvicorn python-multipart opencv-python
