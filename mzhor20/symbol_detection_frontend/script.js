@@ -1,6 +1,7 @@
 const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
 let drawing = false;
+let selectedFile = null;
 
 clearCanvas();
 
@@ -23,7 +24,7 @@ function draw(e) {
     if (!drawing) return;
     ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
     ctx.strokeStyle = "black";
-    ctx.lineWidth = 6;
+    ctx.lineWidth = 18;
     ctx.stroke();
     e.preventDefault();
 }
@@ -33,13 +34,36 @@ function clearCanvas() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-async function uploadImage() {
+async function uploadCanvasImage() {
     const dataUrl = canvas.toDataURL('image/png');
     const blob = await (await fetch(dataUrl)).blob();
 
     const formData = new FormData();
     formData.append('image', blob, 'drawing.png');
 
+    await sendImage(formData);
+}
+
+function handleFileSelect() {
+    const fileInput = document.getElementById('imageInput');
+    selectedFile = fileInput.files[0];
+
+    if (selectedFile) {
+        document.getElementById('detectImageButton').disabled = false; // Enable detect button
+        document.getElementById('symbol').innerText = 'Image selected. Click "Detect Image" to proceed.';
+    }
+}
+
+async function detectUploadedFile() {
+    if (selectedFile) {
+        const formData = new FormData();
+        formData.append('image', selectedFile);
+
+        await sendImage(formData);
+    }
+}
+
+async function sendImage(formData) {
     try {
         const response = await fetch('http://127.0.0.1:8080/api/symbolRecognition', {
             method: 'POST',
@@ -67,4 +91,3 @@ async function uploadImage() {
         document.getElementById('symbol').innerText = 'Error occurred while processing the image.';
     }
 }
-
