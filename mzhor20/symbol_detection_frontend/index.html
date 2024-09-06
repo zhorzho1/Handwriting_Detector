@@ -12,7 +12,11 @@
         <canvas id="drawingCanvas" width="300" height="300"></canvas>
         <br>
         <button onclick="clearCanvas()">Clear</button>
-        <button onclick="uploadImage()">Upload Image</button>
+        <button onclick="uploadCanvasImage()">Detect Drawing</button>
+        <br>
+        <input type="file" id="imageInput" accept="image/*" onchange="handleFileSelect()" style="display: none;">
+        <button onclick="document.getElementById('imageInput').click()">Select Image</button>
+        <button id="detectImageButton" onclick="detectUploadedFile()" disabled>Detect Image</button>
         <div id="result">
             <p id="symbol"></p>
         </div>
@@ -20,3 +24,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
