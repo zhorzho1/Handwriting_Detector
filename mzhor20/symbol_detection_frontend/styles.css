@@ -6,6 +6,8 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
+    padding: 20px; 
+    box-sizing: border-box; 
 }
 
 .container {
@@ -14,12 +16,15 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px; 
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 canvas {
     border: 1px solid #000;
     margin-top: 20px;
-    background-color: transparent; /* Ensure the canvas is transparent */
+    background-color: transparent;
 }
 
 button {
@@ -31,6 +36,8 @@ button {
 
 #result {
     margin-top: 20px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
+    word-wrap: break-word; 
+    max-width: 100%; 
 }
